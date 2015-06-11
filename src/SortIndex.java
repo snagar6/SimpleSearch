@@ -17,48 +17,50 @@
 
 public class SortIndex {
 
-    public static void inPlaceQuickSort (EmulatedDistribitedDatabaseEntry[] arr, int i, int j) {
-        if (i < j) {
-        	/* Partitioning the dataset */
-            int q = partition (arr, i, j);
-            /* Splitting the dataset across two equal partitions */
-            inPlaceQuickSort (arr, i, q);
-            inPlaceQuickSort (arr, q+1, j);
-        }
-    }
+	public static void inPlaceQuickSort (EmulatedDistribitedDatabaseEntry[] arr, int i, int j) {
+		if (i < j) {
+			/* Partitioning the dataset */
+			int q = partition (arr, i, j);
 
-    private static int partition(EmulatedDistribitedDatabaseEntry[] a, int p, int r) {
+			/* Splitting the dataset across two equal partitions */
+			inPlaceQuickSort (arr, i, q);
+			inPlaceQuickSort (arr, q+1, j);
+		}
+	}
 
-        int x = a[p].bandIndex;
-        int i = p - 1;
-        int j = r + 1;
+	private static int partition(EmulatedDistribitedDatabaseEntry[] a, int p, int r) {
 
-        while (true) {
-            i++;
-            while ( (i < r) && a[i].bandIndex < x)
-                i++;
-            j--;
-            while ( (j > p) && a[j].bandIndex > x)
-                j--;
+		int x = a[p].bandIndex;
+		int i = p - 1;
+		int j = r + 1;
 
-            if (i < j)
-                swap (a, i, j);
-            else
-                return j;
-        }
-    }
+		while (true) {
+			i++;
+			while ( (i < r) && a[i].bandIndex < x)
+				i++;
 
-    /* Swapping two entries in the datasets */
-    /* NOTE: In real world, We SHOULD JUST BE SORTING the COLUMN which is PICKED for INDEXING & WHAT it is POINTING to, not the entire DATASET */
-    private static void swap(EmulatedDistribitedDatabaseEntry[] a, int i, int j) {     
-    	EmulatedDistribitedDatabaseEntry temp = new EmulatedDistribitedDatabaseEntry(a[i].bandName, a[i].bandID, a[i].bandIndex);
+			j--;
+			while ( (j > p) && a[j].bandIndex > x)
+				j--;
+
+			if (i < j)
+				swap (a, i, j);
+			else
+				return j;
+		}
+	}
+
+	/* Swapping two entries in the datasets */
+	/* NOTE: In real world, We SHOULD JUST BE SORTING the COLUMN which is PICKED for INDEXING & WHAT it is POINTING to, not the entire DATASET */
+	private static void swap(EmulatedDistribitedDatabaseEntry[] a, int i, int j) {     
+		EmulatedDistribitedDatabaseEntry temp = new EmulatedDistribitedDatabaseEntry(a[i].bandName, a[i].bandID, a[i].bandIndex);
   
-        a[i].bandName = a[j].bandName;
-        a[i].bandID = a[j].bandID;
-        a[i].bandIndex = a[j].bandIndex;
+		a[i].bandName = a[j].bandName;
+		a[i].bandID = a[j].bandID;
+		a[i].bandIndex = a[j].bandIndex;
         
-        a[j].bandName = temp.bandName;
-        a[j].bandID = temp.bandID;
-        a[j].bandIndex = temp.bandIndex;
-    }
+		a[j].bandName = temp.bandName;
+		a[j].bandID = temp.bandID;
+		a[j].bandIndex = temp.bandIndex;
+	}
 }

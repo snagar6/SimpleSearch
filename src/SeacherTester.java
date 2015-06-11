@@ -189,17 +189,18 @@ public class SeacherTester {
 
 	@Before
 	public void setUp() throws Exception {
+
 		/* Creating a Searcher Instance */
 		this.testSearchInstance = new Searcher(testFilePath);
 		
-        /* Emulating a Database - By parsing the file containing the dataset onto the memory (emulated database as per the design) */
-        testSearchInstance.parseFile(testSearchInstance.filePath);
+        	/* Emulating a Database - By parsing the file containing the dataset onto memory */
+		testSearchInstance.parseFile(testSearchInstance.filePath);
            
-    	/* Index Based Sort */
-        SortIndex.inPlaceQuickSort (testSearchInstance.rowDataset, 0, testSearchInstance.count - 1);
+    		/* Index Based Sort */
+        	SortIndex.inPlaceQuickSort (testSearchInstance.rowDataset, 0, testSearchInstance.count - 1);
 		
 		/* Dataset Sharding & assigning the shards to virtual nodes */
 		testSearchInstance.shardingToNodes();
 		
-	  } 
+	} 
 } 

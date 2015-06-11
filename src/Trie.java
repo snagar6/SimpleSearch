@@ -8,7 +8,6 @@
  * a failure of a band lookup after the query has been made. 
  */
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,61 +17,61 @@ import java.util.List;
 import java.util.Map.Entry;
 
 /* Implementing the Trie (prefix tree) */
-class MusicBandsTrie {        
+class MusicBandsTrie {
+
 	public TrieNode base;
 	
-    public MusicBandsTrie () { 
-    	base = new TrieNode((char)0);    
-    }    
+	public MusicBandsTrie () { 
+    		base = new TrieNode((char)0);    
+	}    
 
-    public void insert(String str) {
+	public void insert(String str) {
+    		TrieNode traverse = base;
            
-    	TrieNode traverse = base;
-           
-        for(int i = 0; i < str.length(); i++) {
-        	/* Getting an HashMap which contains all the existing children of the Trie Node */
-            HashMap<Character,TrieNode> children = traverse.getChildren();            
-            char ch = str.charAt(i);
+		for (int i = 0; i < str.length(); i++) {
+        		/* Getting an HashMap which contains all the existing children of the Trie Node */
+			HashMap<Character,TrieNode> children = traverse.getChildren();            
+			char ch = str.charAt(i);
           
-            /* Finding if there is child node (character) under this node */
-            if(children.containsKey(ch))
-            	traverse = children.get(ch);
-            else {   /* If child node is not found - grow the Trie by adding a new Trie Node for the parent node */
-                TrieNode t = new TrieNode(ch);
-                children.put(ch, t);
-                traverse = t; /* New position for traversal would be the newly added child node */
-            }
-        }
-        /* Mark the last trie node for that input string as the end of word */
-        traverse.setIsWordEnd(true);
-    }
+			/* Finding if there is child node (character) under this node */
+			if (children.containsKey(ch))
+				traverse = children.get(ch);
+			else { /* If child node is not found - grow the Trie by adding a new Trie Node for the parent node */
+				TrieNode t = new TrieNode(ch);
+				children.put(ch, t);
+				traverse = t; /* New position for traversal would be the newly added child node */
+			}
+		}
+		/* Mark the last trie node for that input string as the end of word */
+		traverse.setIsWordEnd(true);
+	}
     
-    public ArrayList<String> retCloseMatches(String partialStr) {
-    	TrieNode traverse = base;
-    	int len = partialStr.length();
-    	int i;
+	public ArrayList<String> retCloseMatches(String partialStr) {
+    		TrieNode traverse = base;
+   	 	int len = partialStr.length();
+    		int i;
     	    	    
-        for (i = 0; i < len; i++) {
-            HashMap<Character,TrieNode> child = traverse.getChildren();            
-            char ch = partialStr.charAt(i);            
+		for (i = 0; i < len; i++) {
+			HashMap<Character,TrieNode> child = traverse.getChildren();            
+			char ch = partialStr.charAt(i);            
             
-            /* To check if we can find the next character of the prefix string in the Trie */
-           	if(child.containsKey(ch))          		         		
-           		traverse = child.get(ch);          
-           	else
-           		return (new ArrayList<String>()); /* Return an Empty List - because, there is no band with this prefix */
-        }        
+			/* To check if we can find the next character of the prefix string in the Trie */
+			if (child.containsKey(ch))          		         		
+				traverse = child.get(ch);          
+			else
+				return (new ArrayList<String>()); /* Return an Empty List - because, there is no band with this prefix */
+		}        
         
-        /* The partial lookup is a valid prefix, but that is not Music Band by itself*/
-        if ( (i == len) && (traverse.isWordEnd() == false) )        	
-        	return(getAllWords(traverse, partialStr));
+		/* The partial lookup is a valid prefix, but that is not Music Band by itself*/
+		if ((i == len) && (traverse.isWordEnd() == false))        	
+			return (getAllWords(traverse, partialStr));
     
-        /* This means there was a match found - and there are no recommendations for the user, so returning empty list */         
-        return (new ArrayList<String>());    	
-    }
+		/* This means there was a match found, so returning empty list - shdnt reach here */     
+		return (new ArrayList<String>());    	
+	}
     
-    /* Getting all the valid Music bands for the prefix */
-    ArrayList<String> getAllWords(TrieNode start,  String prefixStr) {
+	/* Getting all the valid Music bands for the prefix */
+	ArrayList<String> getAllWords(TrieNode start,  String prefixStr) {
     	HashMap<Character,TrieNode> childrenList; 
     	childrenList = start.getChildren();    	
     	
@@ -89,35 +88,34 @@ class MusicBandsTrie {
 			}
 			return list;
 		}    	
-    }
+	}
 }
 
 /* Single node in the Trie tree */
 class TrieNode {        
 	private char val;  
 	private boolean isWordEnd;
-    private HashMap<Character,TrieNode> children;  
+	private HashMap<Character,TrieNode> children;  
     
-    public TrieNode(char c)  {
-        val = c;
-        children = new HashMap<Character,TrieNode>();
-        isWordEnd = false;
-    }    
+	public TrieNode(char c)  {
+		val = c;
+		children = new HashMap<Character,TrieNode>();
+		isWordEnd = false;
+	}    
     
-    public HashMap<Character,TrieNode> getChildren() {
-    	return children; 
-    }    
+	public HashMap<Character,TrieNode> getChildren() {
+		return children; 
+	}    
     
-    public char getVal() {   
-    	return val;  
-    }    
+	public char getVal() {   
+		return val;  
+	}    
     
-    public void setIsWordEnd(boolean value) {
-    	isWordEnd = value;
-    }
+	public void setIsWordEnd(boolean value) {
+		isWordEnd = value;
+	}
     
-    public boolean isWordEnd() { 
-    	return isWordEnd; 
-    }       
-     
+	public boolean isWordEnd() { 
+		return isWordEnd; 
+	}       
 }

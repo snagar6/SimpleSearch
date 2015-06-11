@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class SearchBandInVirtualNode {
 
 	public static ArrayList<String> searchNode(EmulatedDistribitedDatabaseEntry[] a, int index) {
+
 	    if (a.length == 0) {
 	    	return new ArrayList<String>(); 
 	    }
@@ -47,6 +48,6 @@ public class SearchBandInVirtualNode {
 	  
 	    /* Music band not found in this shard */
 	    return new ArrayList<String>(); 
-	  }	
+	}	
 }
 
