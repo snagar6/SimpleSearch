@@ -1,2 +1,2 @@
 # SimpleSearch
-Simple search engine
+Simple database search engine
